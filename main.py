@@ -27,7 +27,6 @@ def cadastro():
         for analise in lista:  
                 if analise["produto"] == armazen["produto"]: 
                     armazen.clear()
-                    print("Esse produto ja foi cadastrados")
                     return render_template('cadastro.html',
                                            mensagem = "Esse produto já foi cadastrado!")
                 
@@ -81,10 +80,35 @@ def pesquisa_pro():
     else:   
         return render_template('pesquisa_pro.html')
     
+@app.route('/deposito', methods=('GET','POST'))
+def deposito():
+    if request.method == 'POST': 
+        pesquisa = False
+        categoria = request.form['txtpesquisaa'].strip().lower() 
+        for analise in lista: 
+            if analise['produto'] == categoria: 
+                pesquisa = True 
+
+        if pesquisa == False: 
+            return render_template('deposito.html',
+                            mensagem = "Produto não encontrado")
+        
+        if pesquisa == True:
+            quantidade = request.form['numbersoma']
+            lista['quantidade'] += quantidade
+            return render_template('deposito.html',
+                                   somar = quantidade)
+    else:
+        return render_template('/deposito.html')
+        
+        
+
+    
              
 @app.route('/escolha')
 def escolha():
     return render_template('escolha.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

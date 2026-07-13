@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Estoque</title>
+    <title>controle</title>
 
-    <style>
+   <style>
         *{
             margin: 0;
             padding: 0;
@@ -27,7 +27,7 @@
         }
 
         .painel{
-            background: rgba(238, 195, 195, 0.85);
+            background: rgba(238, 212, 212, 0.85);
             padding: 35px;
             border-radius: 20px;
             box-shadow: 0px 5px 20px rgba(0,0,0,0.15);
@@ -72,71 +72,48 @@
             font-size: 30px;
         }
     </style>
-</head>
 
+</head>
 <body>
     
+    <form method="post" action="/deposito">
+        <div class="painel" >
+            <h1>➕ Entrada de Estoque</h1>
+            
+            <div class="container"> 
+        
+            
+                <label>Nome do produto</label>
+                <input type="text" name="txtpesquisaa">
+               
 
-    <script>
+                <button>Pesquisar</button>  
 
-    function navegar(url){
+                <div class="container"></div>
+                    {%if pesquisa %}
+                        <label >Quantidade</label>
+                        <input type="number" name="numbersoma">    
+                        <button>Abastecer</button>
+                    {%endif%}            
+                </div>
 
-        const audio = new Audio("{{ url_for('static', filename='audio/clickk.mp3') }}");
+                {% if mensagem %}
 
-        audio.volume = 1;
+                <p style="color: red;">
+                    {{mensagem}}
+                </p>
 
-        audio.play();
+                <script>
+                    setTimeout(function() {
+                        window.location.href = "/deposito";
+                    }, 2000); // 2 segundos
+                </script>
+                {% endif %}
 
-        setTimeout(function(){
-
-            window.location.href = url;
-
-        },300);
-
-    }
-
-    </script>
-
-
-    <div class="painel">
-
-        <h1>📦 Controle de Estoque</h1>
-
-        <div class="container">
-
-            <button type="button" onclick="navegar('/cadastro')">
-                <span class="icone" >📦</span>
-                Cadastro de Produtos
-            </button>
-
-            <button type="button" onclick="navegar('/pesquisa_cat')">
-                <span class="icone">🔎</span>
-                Pesquisar Categoria
-            </button>
-
-            <button type="button" onclick="navegar('/pesquisa_pro')">
-                <span class="icone">📋</span>
-                Listar Produtos
-            </button>
-
-            <button type="button" onclick="navegar('/deposito')">
-                <span class="icone">➕</span>
-                Entrada de Estoque
-            </button>
-
-            <button type="button">
-                <span class="icone">➖</span>
-                Saída de Estoque
-            </button>
-
-            <button type="button">
-                <span class="icone">📊</span>
-                Relatórios
-            </button>
-
+                
+            </div> 
+    <a href="/escolha" class="botao">Voltar à Página Principal</a>         
         </div>
-
-    </div>
-
+    </form>
 </body>
 </html>
