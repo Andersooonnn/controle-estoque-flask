@@ -1,0 +1,17 @@
+colocar a hora e data das alterações
+usuario que fazer qualquer alteração de estoque, como retira e abastcimento
+
+[1] cadastro de produtos  
+                        [2] pesquisa por categoria 
+                        [3] Pesquisa por nome + quantidade  
+                        [4] Entrada de Estoque       
+                        [5] Saida do estoque  
+                        [6] Todos os produtos cadastrados     
+                        [7] Excluir produtos
+                        [0] Sair  
+
+
+categoria ja deve ter as opiçções para o usuario selecionar
+
+ja o produto, temos que ter ja no banco de dados os produtos trabalhados e na hora de cadastra  o nome vai se 
+completando (tipo preenchimento automatico)
