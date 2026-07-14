@@ -30,8 +30,8 @@ def cadastro():
                     return render_template('cadastro.html',
                                            mensagem = "Esse produto já foi cadastrado!")
                 
-        armazen['preco'] = request.form['numberpreco']
-        armazen['quantidade'] = request.form['numberquantidade']
+        armazen['preco'] = float(request.form['numberpreco'])
+        armazen['quantidade'] = int(request.form['numberquantidade'])
         lista.append(armazen.copy())
         armazen.clear()
         return redirect('/relatorio')
@@ -84,26 +84,21 @@ def pesquisa_pro():
 def deposito():
     if request.method == 'POST': 
         pesquisa = False
-        categoria = request.form['txtpesquisaa'].strip().lower() 
+        produto = request.form['txtpesquisaa'].strip().lower()
         for analise in lista: 
-            if analise['produto'] == categoria: 
+            if analise['produto'] == produto: 
                 pesquisa = True 
+                quantidade_adicionar = int(request.form['numbersomar'])
+                analise['quantidade'] += quantidade_adicionar
+                return render_template('deposito.html')
 
         if pesquisa == False: 
             return render_template('deposito.html',
                             mensagem = "Produto não encontrado")
         
-        if pesquisa == True:
-            quantidade = request.form['numbersoma']
-            lista['quantidade'] += quantidade
-            return render_template('deposito.html',
-                                   somar = quantidade)
     else:
-        return render_template('/deposito.html')
+        return render_template('deposito.html')
         
-        
-
-    
              
 @app.route('/escolha')
 def escolha():
