@@ -1,0 +1,21 @@
+<table>
+        <tr>
+            <th>categoria</th>
+            <th>produto</th>
+            <th>preco</th>
+            <th>quantidade</th>
+             
+        </tr>
+
+        {% for organizar in cat%}
+        <tr>
+            <td>{{organizar.categoria}}</td>
+            <td>{{organizar.produto}}</td>
+            <td>{{organizar.preco}}</td>
+            <td>{{organizar.quantidade}}</td>
+           
+        </tr>
+        {% endfor %}
+
+        
+    </table>

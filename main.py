@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,session
 
 armazen = {}
 lista = []
 
 app = Flask(__name__)
+
+app.secret_key = 'Meucodigoshow'
 
 @app.route('/relatorio')
 def relatorio():
@@ -99,7 +101,24 @@ def deposito():
     else:
         return render_template('deposito.html')
         
-             
+@app.route('/')
+def login():
+        return render_template('login.html')
+    
+@app.route('/autenticar', methods=('POST','GET'))
+def autenticar():
+    if request.form['txtsenha'] == 'admin':
+        session['usuario_logado'] = request.form['txtlogin']
+        return render_template('escolha.html')
+    else:
+        return render_template('login.html',
+                        mensagem = 'Login ou senha incorreto')
+    
+app.route('/sair')
+def sair():
+    session['usuario_logado'] = None
+    return redirect('/')
+
 @app.route('/escolha')
 def escolha():
     return render_template('escolha.html')

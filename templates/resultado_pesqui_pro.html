@@ -4,33 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatorio</title>
+    <link rel="stylesheet" href="../static/bootstrap.css">
     <style type="text/css">
         table,th,td{
             border: 1px solid #000000;
         }
     </style>
 </head>
+<style>
+  body {
+    background-image: url("/static/fundo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+  }
+</style>
 <body>
-    <table>
-        <tr>
-            <th>produto</th>
-            <th>preço</th>
-            <th>quantidade</th>
-             
-        </tr>
+     <div class="container">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>categoria</th>
+                    <th>produto</th>
+                    <th>preco</th>
+                    <th>quantidade</th>    
+                </tr>
+            </thead>
 
-        {% for organizar in pro%}
-        <tr>
-            <td>{{organizar.produto}}</td>
-            <td>{{organizar.preco}}</td>
-            <td>{{organizar.quantidade}}</td>
-           
-        </tr>
-        {% endfor %}
-        
+            {% for organizar in pro%}
+            <tr>
+                <td>{{organizar.categoria}}</td>
+                <td>{{organizar.produto}}</td>
+                <td>{{organizar.preco}}</td>
+                <td>{{organizar.quantidade}}</td>
+            
+            </tr>
+            {% endfor %}
 
-        
-    </table>
+            </thead>
+        </table>
+    </div>
     
 </body>
 </html>

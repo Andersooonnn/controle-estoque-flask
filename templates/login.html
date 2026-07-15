@@ -17,15 +17,33 @@
 </style>
 
 <body>
-    <h2>Digite o login e a senha</h2>
-    <div class="container">
-        <label>Login</label>
-        <input type="text" name="txtlogin" class="form-control">
-    </div>
-    <div class="container">
-        <label>Senha</label>
-        <input type="text" name="txtsenha" class="form-control">
-    </div>
-    
+    <h2>Digite o login e senha</h2>
+    <form method="post" action="/autenticar">
+        <div class="container">
+            
+                
+            <div class="mb-3">
+                <label for="textLOGIN">Login</label>
+                <input type="text" name="txtlogin" id="textLOGIN"  class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="textSENHA">Senha</label>
+                <input type="password" name="txtsenha" id="textSENHA" class="form-control">
+            </div>
+            <div>
+                <Button type="submit" class="btn btn-primary" href="/escolha">Acessar</Button>
+            </div>
+            {% if mensagem %}
+                <p style="color: red;">
+                    {{mensagem}}
+                </p>
+            <script>
+                    setTimeout(function() {
+                        window.location.href = "/";
+                    }, 2000); // 2 segundos
+            </script>
+            {%endif%}
+        </div>
+    </form>
 </body>
 </html>
