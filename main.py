@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect,session
+from flask import Flask, render_template, request, redirect,session , url_for
 
 armazen = {}
 lista = []
@@ -103,13 +103,15 @@ def deposito():
         
 @app.route('/')
 def login():
-        return render_template('login.html')
+    return render_template('login.html')
+    
     
 @app.route('/autenticar', methods=('POST','GET'))
 def autenticar():
+    
     if request.form['txtsenha'] == 'admin':
         session['usuario_logado'] = request.form['txtlogin']
-        return render_template('escolha.html')
+        return redirect(url_for('escolha'))
     else:
         return render_template('login.html',
                         mensagem = 'Login ou senha incorreto')
@@ -117,11 +119,14 @@ def autenticar():
 app.route('/sair')
 def sair():
     session['usuario_logado'] = None
-    return redirect('/')
+    return redirect(url_for('login'))
+   
 
 @app.route('/escolha')
 def escolha():
     return render_template('escolha.html')
+   
+    
 
 
 if __name__ == '__main__':
