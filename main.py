@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect,session , url_for
 
+
 armazen = {}
+#usuario_s = {}
 lista = []
+#usuario_senha = []
 
 app = Flask(__name__)
 
@@ -9,11 +12,15 @@ app.secret_key = 'Meucodigoshow'
 
 @app.route('/relatorio')
 def relatorio():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     return render_template('relatorio.html',
                            listas = lista)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
 
     if request.method == 'POST':
         armazen['categoria'] = request.form['txtcategoria'].strip().lower() 
@@ -43,6 +50,8 @@ def cadastro():
 
 @app.route('/pesquisa_cat',methods=('GET','POST'))
 def pesquisa_cat():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     if request.method == 'POST':
         resultado = []  
         categoria = request.form['txtpesquisaa'].strip().lower() 
@@ -59,6 +68,8 @@ def pesquisa_cat():
 
 @app.route('/pesquisa_pro', methods=('GET','POST'))
 def pesquisa_pro():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     if request.method == 'POST':
         resultado = []  
         pesquisa = False
@@ -84,15 +95,15 @@ def pesquisa_pro():
     
 @app.route('/deposito', methods=('GET','POST'))
 def deposito():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     if request.method == 'POST': 
         pesquisa = False
         produto = request.form['txtpesquisaa'].strip().lower()
         for analise in lista: 
             if analise['produto'] == produto: 
                 pesquisa = True 
-                quantidade_adicionar = int(request.form['numbersomar'])
-                analise['quantidade'] += quantidade_adicionar
-                return render_template('deposito.html')
+                return redirect(url_for('depositando'))
 
         if pesquisa == False: 
             return render_template('deposito.html',
@@ -100,7 +111,21 @@ def deposito():
         
     else:
         return render_template('deposito.html')
+
+#fazendo atualização =============================================================================
+@app.route('/depositando', methods=('POST','GET'))
+def depositando():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
         
+    return render_template('depositando.html')
+
+    #quantidade_adicionar = int(request.form['numbersomar'])
+    #analise['quantidade'] += quantidade_adicionar
+    #return render_template('deposito.html')
+
+
 @app.route('/')
 def login():
     return render_template('login.html')
@@ -116,14 +141,16 @@ def autenticar():
         return render_template('login.html',
                         mensagem = 'Login ou senha incorreto')
     
-app.route('/sair')
+@app.route('/sair')
 def sair():
-    session['usuario_logado'] = None
+    session.pop('usuario_logado', None)
     return redirect(url_for('login'))
    
 
 @app.route('/escolha')
 def escolha():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
     return render_template('escolha.html')
    
     
