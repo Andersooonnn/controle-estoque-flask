@@ -102,6 +102,7 @@ def deposito():
         produto = request.form['txtpesquisaa'].strip().lower()
         for analise in lista: 
             if analise['produto'] == produto: 
+                session['produto'] = produto
                 pesquisa = True 
                 return redirect(url_for('depositando'))
 
@@ -118,12 +119,16 @@ def depositando():
     if 'usuario_logado' not in session:
         return redirect(url_for('login'))
     if request.method == 'POST':
-        
+        produto = session['produto']
+        for analise in lista:
+            if analise['produto'] == produto:
+                session.pop('produto', None)
+                quantidade = int(request.form['numberquantidade'])
+                analise['quantidade'] += quantidade
+                return redirect(url_for('relatorio'))
+
     return render_template('depositando.html')
 
-    #quantidade_adicionar = int(request.form['numbersomar'])
-    #analise['quantidade'] += quantidade_adicionar
-    #return render_template('deposito.html')
 
 
 @app.route('/')
