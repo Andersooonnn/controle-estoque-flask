@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>controle</title>
+
+   <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-image: url("/static/fundo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .painel{
+            background: rgba(238, 212, 212, 0.85);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.15);
+
+            width: 550px;
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        button{
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+
+            font-size: 16px;
+            cursor: pointer;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            transition: transform 0.2s;
+        }
+
+        button:hover{
+            transform: scale(1.03);
+        }
+
+        .icone{
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <form method="post" action="/retirada">
+        <div class="painel" >
+            <h1>➖ Saida de Estoque</h1>
+            
+            <div class="container"> 
+        
+            
+                <label>Nome do produto</label>
+                <input type="text" name="txtpesquisaa">
+               
+
+                <button>Pesquisar</button>  
+
+                <div class="container"></div>
+                    {%if pesquisa %}
+                        <label >Quantidade</label>
+                        <input type="number" name="numbersomar">    
+                        <button>Retirar</button>
+                    {%endif%}            
+                </div>
+
+                {% if mensagem %}
+
+                <p style="color: red;">
+                    {{mensagem}}
+                </p>
+
+                <script>
+                    setTimeout(function() {
+                        window.location.href = "/deposito";
+                    }, 2000); // 2 segundos
+                </script>
+                {% endif %}
+
+                
+            </div> 
+    <a href="/escolha" class="botao">Voltar à Página Principal</a>         
+        </div>
+    </form>
+</body>
+</html>

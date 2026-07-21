@@ -10,12 +10,14 @@ app = Flask(__name__)
 
 app.secret_key = 'Meucodigoshow'
 
-@app.route('/relatorio')
+
+@app.route('/relatorio', methods=['GET',])
 def relatorio():
     if 'usuario_logado' not in session:
         return redirect(url_for('login'))
-    return render_template('relatorio.html',
-                           listas = lista)
+    else:
+        return render_template('relatorio.html',
+                            listas = lista)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -122,14 +124,57 @@ def depositando():
         produto = session['produto']
         for analise in lista:
             if analise['produto'] == produto:
-                session.pop('produto', None)
+                
                 quantidade = int(request.form['numberquantidade'])
                 analise['quantidade'] += quantidade
+                session.pop('produto', None)
                 return redirect(url_for('relatorio'))
 
     return render_template('depositando.html')
 
 
+@app.route('/escolha')
+def escolha():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    return render_template('escolha.html')
+  #=======================================================================================================
+  #  
+@app.route('/retirada', methods=('POST','GET'))
+def retirada():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST': 
+        pesquisa = False
+        produto = request.form['txtpesquisaa'].strip().lower()
+        for analise in lista: 
+            if analise['produto'] == produto: 
+                session['produto'] = produto
+                pesquisa = True 
+                return redirect(url_for('retirando'))
+
+        if pesquisa == False: 
+            return render_template('retirada.html',
+                            mensagem = "Produto não encontrado")
+        
+    else:
+        return render_template('retirada.html')
+
+@app.route('/retirando', methods=('POST','GET'))
+def retirando():
+    if 'usuario_logado' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        produto = session['produto']
+        for analise in lista:
+            if analise['produto'] == produto:
+                
+                quantidade = int(request.form['numberquantidade'])
+                analise['quantidade'] -= quantidade
+                session.pop('produto', None)
+                return redirect(url_for('relatorio'))
+
+    return render_template('retirando.html')
 
 @app.route('/')
 def login():
@@ -150,16 +195,6 @@ def autenticar():
 def sair():
     session.pop('usuario_logado', None)
     return redirect(url_for('login'))
-   
-
-@app.route('/escolha')
-def escolha():
-    if 'usuario_logado' not in session:
-        return redirect(url_for('login'))
-    return render_template('escolha.html')
-   
-    
-
 
 if __name__ == '__main__':
     app.run(debug=True)
