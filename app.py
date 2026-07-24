@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect,session , url_for
-
+from routes.login import login_bp
 
 armazen = {}
 #usuario_s = {}
@@ -176,25 +176,9 @@ def retirando():
 
     return render_template('retirando.html')
 
-@app.route('/')
-def login():
-    return render_template('login.html')
-    
-    
-@app.route('/autenticar', methods=('POST','GET'))
-def autenticar():
-    
-    if request.form['txtsenha'] == 'admin':
-        session['usuario_logado'] = request.form['txtlogin']
-        return redirect(url_for('escolha'))
-    else:
-        return render_template('login.html',
-                        mensagem = 'Login ou senha incorreto')
-    
-@app.route('/sair')
-def sair():
-    session.pop('usuario_logado', None)
-    return redirect(url_for('login'))
+
+
+app.register_blueprint(login_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
