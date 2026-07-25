@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect,session , url_for
 from routes.login import login_bp
 from routes.painel import painel_bp
 from routes.buscas import pesquisa_bp
+from routes.dados import lista , armazen
 
 armazen = {}
 #usuario_s = {}

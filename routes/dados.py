@@ -1,0 +1,4 @@
+
+
+armazen = {}
+lista = []

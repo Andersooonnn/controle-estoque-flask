@@ -1,5 +1,7 @@
 from flask import Blueprint , redirect,url_for,request, render_template, session
-from app import lista
+from routes.dados import lista ,armazen
+
+
 pesquisa_bp = Blueprint('pesquisa',__name__)
 
 @pesquisa_bp.route('/pesquisa_cat',methods=('GET','POST'))

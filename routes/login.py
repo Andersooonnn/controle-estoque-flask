@@ -6,6 +6,7 @@ login_bp = Blueprint('login',__name__)
 @login_bp.route('/')
 def login():
     return render_template('login.html')
+
     
 @login_bp.route('/autenticar', methods=('POST','GET'))
 def autenticar():
@@ -16,6 +17,7 @@ def autenticar():
     else:
         return render_template('login.html',
                         mensagem = 'Login ou senha incorreto')
+
     
 @login_bp.route('/sair')
 def sair():
