@@ -4,10 +4,6 @@ from routes.painel import painel_bp
 from routes.buscas import pesquisa_bp
 from routes.dados import lista , armazen
 
-armazen = {}
-#usuario_s = {}
-lista = []
-#usuario_senha = []
 
 app = Flask(__name__)
 
