@@ -1,13 +1,11 @@
 from flask import render_template, Blueprint,redirect,session,request,url_for
 
-
 login_bp = Blueprint('login',__name__)
 
 @login_bp.route('/')
 def login():
     return render_template('login.html')
 
-    
 @login_bp.route('/autenticar', methods=('POST','GET'))
 def autenticar():
     
@@ -18,11 +16,7 @@ def autenticar():
         return render_template('login.html',
                         mensagem = 'Login ou senha incorreto')
 
-    
 @login_bp.route('/sair')
 def sair():
     session.pop('usuario_logado', None)
     return redirect(url_for('login'))
-
-
-
