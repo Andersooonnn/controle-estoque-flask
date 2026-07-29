@@ -7,6 +7,7 @@ retirada_bp = Blueprint('retirada',__name__)
 def retirada():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
     if request.method == 'POST': 
         pesquisa = False
         produto = request.form['txtpesquisaa'].strip().lower()
@@ -30,14 +31,18 @@ def retirada():
 def retirando():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
     if request.method == 'POST':
         produto = session['produto']
         for analise in lista:
             if analise['produto'] == produto:
-                
                 quantidade = int(request.form['numberquantidade'])
-                analise['quantidade'] -= quantidade
-                session.pop('produto', None)
-                return redirect(url_for('relatorio.relatorio'))
+                if quantidade > analise['quantidade']:
+                    return render_template('retirando.html',
+                                    info = f'Negado! Quantidade em estoque {analise['quantidade']}')
+                else:
+                    analise['quantidade'] -= quantidade
+                    session.pop('produto', None)
+                    return redirect(url_for('relatorio.relatorio'))
 
     return render_template('retirando.html')

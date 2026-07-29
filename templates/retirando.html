@@ -104,7 +104,16 @@
             
             
             <button>Saida</button>  
-            
+        {% if info %}
+            <p style="color: red;">
+                {{info}} 
+            </p>    
+        <script>
+            setTimeout(function() {
+                window.location.href = "/retirando";
+            }, 2000); // 2 segundos
+        </script>
+        {% endif %}   
 
             
         </div>
