@@ -3,6 +3,8 @@ from routes.dados import lista, armazen
 
 relatorio_bp = Blueprint('relatorio',__name__)
 
+
+
 @relatorio_bp.route('/relatorio', methods=['GET',])
 def relatorio():
     if 'usuario_logado' not in session:

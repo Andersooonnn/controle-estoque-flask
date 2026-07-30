@@ -24,8 +24,7 @@ def retirada():
     else:
         return render_template('retirada.html')
 
-#Próxima manutenção: Fazer o programa identificar quantidade maxima para poder retirar, assim não ficar com número negativo
-#no estoque
+
 
 @retirada_bp.route('/retirando', methods=('POST','GET'))
 def retirando():
