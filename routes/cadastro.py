@@ -3,7 +3,7 @@ from routes.dados import lista,armazen
 
 cadastro_bp = Blueprint('cadastro',__name__)
 
-
+# informar que o produto foi cadastrado com sucesso e dar continuidade ao cadastro
 
 @cadastro_bp.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
