@@ -31,6 +31,7 @@ def cadastro():
         armazen['quantidade'] = int(request.form['numberquantidade'])
         lista.append(armazen.copy())
         armazen.clear()
-        return redirect('/relatorio')
+        return render_template('cadastro.html',
+                               men = "Cadastro realizado com sucesso!")
 
     return render_template('cadastro.html')

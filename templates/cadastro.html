@@ -100,7 +100,6 @@
                 {% if mensagem %}
                 <p style="color: red;">
                     {{mensagem}}
-                </p>
 
                 <script>
                     setTimeout(function() {
@@ -108,6 +107,19 @@
                     }, 2000); // 2 segundos
                 </script>
                 {% endif %}
+                
+                {% if men %}    
+                    </p>
+                    
+                    <p style = "color: green;">
+                        {{men}}
+                    </p>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = "/cadastro";
+                        }, 2000); // 2 segundos
+                    </script>
+                {% endif %}        
             </div> 
         </div>
     <a href="/escolha" class="botao">Voltar à Página Principal</a>         
