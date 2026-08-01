@@ -1,7 +1,6 @@
 from flask import Blueprint , redirect,url_for,request, render_template, session
 from routes.dados import lista ,armazen
 
-
 pesquisa_bp = Blueprint('pesquisa',__name__)
 
 # =====================================Area de pesquisa por categoria =====================================
@@ -10,19 +9,26 @@ pesquisa_bp = Blueprint('pesquisa',__name__)
 def pesquisa_cat():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
     if request.method == 'POST':
         resultado = []  
+        pesquisa = False
         categoria = request.form['txtpesquisaa'].strip().lower() 
         for analise in lista: 
             if analise['categoria'] == categoria:
-                resultado.append(analise) 
+                pesquisa = True
+        if pesquisa == False:
+            return render_template('pesquisa_cat.html',
+                                   msn = 'Produto não encotrado')
+        
+        for analise in lista: 
+            if analise['categoria'] == categoria:
+                    resultado.append(analise) 
         return render_template(
             'resultado_pesqui_cat.html',
-            cat=resultado)
-                
+            cat=resultado)                
     else:   
         return render_template('pesquisa_cat.html')
-
 
 # =====================================Area de pesquisa por produto =====================================
 
@@ -30,14 +36,14 @@ def pesquisa_cat():
 def pesquisa_pro():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
     if request.method == 'POST':
         resultado = []  
         pesquisa = False
         categoria = request.form['txtpesquisaa'].strip().lower() 
         for analise in lista: 
             if analise['produto'] == categoria: 
-                pesquisa = True 
-                print(analise)  
+                pesquisa = True   
                 
         if pesquisa == False: 
             return render_template('pesquisa_pro.html',

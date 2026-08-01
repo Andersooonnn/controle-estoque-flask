@@ -87,6 +87,18 @@
                 <input type="text" name="txtpesquisaa">
 
                 <button>Pesquisar</button>  
+            {% if msn %}
+
+            <p style="color: red;">
+                {{msn}}
+            </p>
+
+            <script>
+                setTimeout(function() {
+                    window.location.href = "/pesquisa_pro";
+                }, 2000); // 2 segundos
+            </script>
+            {% endif %}
 
                 
             </div> 

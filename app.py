@@ -8,7 +8,6 @@ from routes.estoque.deposito import deposito_bp
 from routes.estoque.saida import retirada_bp
 from routes.dados import lista , armazen
 
-
 app = Flask(__name__)
 
 app.secret_key = 'Meucodigoshow'
