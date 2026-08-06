@@ -8,6 +8,7 @@ deposito_bp = Blueprint("deposito",__name__)
 def deposito():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
     if request.method == 'POST': 
         pesquisa = False
         produto = request.form['txtpesquisaa'].strip().lower()
@@ -29,6 +30,8 @@ def deposito():
 def depositando():
     if 'usuario_logado' not in session:
         return redirect(url_for('login.login'))
+    
+    
     if request.method == 'POST':
         produto = session['produto']
         for analise in lista:
@@ -37,6 +40,9 @@ def depositando():
                 quantidade = int(request.form['numberquantidade'])
                 analise['quantidade'] += quantidade
                 session.pop('produto', None)
-                return redirect(url_for('relatorio.relatorio'))
-
-    return render_template('depositando.html')
+                return redirect(url_for('deposito.deposito'))
+    produtos = session['produto']        
+    for analisando in lista:
+        if analisando['produto'] == produtos:
+            return render_template('depositando.html',
+                                msn = f'Produto: {analisando['produto']} | Quantidade: {analisando['quantidade']}')
